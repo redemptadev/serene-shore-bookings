@@ -44,15 +44,20 @@ export async function notifyGuest(input: {
   replyTo?: string;
 }): Promise<NotifyChannels> {
   await pushNotification({
-    userId: input.userId,
+    userId: input.userId ?? null,
     audience: "user",
     title: input.title,
-    body: input.body,
-    kind: input.kind,
-    bookingId: input.bookingId,
+    body: input.body ?? "",
+    kind: input.kind ?? "info",
+    bookingId: input.bookingId ?? null,
   });
   const email = input.mail && input.email
-    ? await sendEmail({ to: input.email, subject: input.mail.subject, html: input.mail.html, replyTo: input.replyTo })
+    ? await sendEmail({
+        to: input.email,
+        subject: input.mail.subject,
+        html: input.mail.html,
+        ...(input.replyTo ? { replyTo: input.replyTo } : {}),
+      })
     : { sent: false, reason: "no_email_payload" };
   return { inApp: true, email, whatsapp: { sent: false, reason: "not_targeted" } };
 }
@@ -69,9 +74,9 @@ export async function notifyHost(input: {
   await pushNotification({
     audience: "admin",
     title: input.title,
-    body: input.body,
-    kind: input.kind,
-    bookingId: input.bookingId,
+    body: input.body ?? "",
+    kind: input.kind ?? "info",
+    bookingId: input.bookingId ?? null,
   });
 
   const mail = hostAlertEmail(input.title, input.body ?? "", input.rows ?? []);

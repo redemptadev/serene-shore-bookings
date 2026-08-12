@@ -39,7 +39,7 @@ export async function sendEmail(input: {
       return { sent: false, reason: `provider_error_${response.status}` };
     }
     const payload = (await response.json()) as { id?: string };
-    return { sent: true, id: payload.id };
+    return payload.id ? { sent: true, id: payload.id } : { sent: true };
   } catch (error) {
     console.error("email transport failure", error);
     return { sent: false, reason: "transport_error" };

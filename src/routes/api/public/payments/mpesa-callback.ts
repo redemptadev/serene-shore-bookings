@@ -46,11 +46,11 @@ export const Route = createFileRoute("/api/public/payments/mpesa-callback")({
         if (resultCode === "0") {
           await db
             .from("payments")
-            .update({ status: "paid", provider_reference: receipt ? String(receipt) : null, raw_payload: payload })
+            .update({ status: "paid", provider_reference: receipt ? String(receipt) : null, raw_payload: JSON.parse(JSON.stringify(payload)) })
             .eq("id", payment.id);
           await markBookingPaid(payment.booking_id, receipt ? String(receipt) : null);
         } else {
-          await db.from("payments").update({ status: "failed", raw_payload: payload }).eq("id", payment.id);
+          await db.from("payments").update({ status: "failed", raw_payload: JSON.parse(JSON.stringify(payload)) }).eq("id", payment.id);
           await db.from("bookings").update({ payment_status: "failed" }).eq("id", payment.booking_id);
           await announceBookingEvent("payment_failed", payment.booking_id);
         }

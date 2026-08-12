@@ -64,7 +64,7 @@ export const initiatePayment = createServerFn({ method: "POST" })
         amount: Number(booking.total),
         currency: booking.currency,
         status: "failed",
-        raw_payload: { error: error instanceof Error ? error.message : "unknown" },
+        raw_payload: JSON.parse(JSON.stringify({ error: error instanceof Error ? error.message : "unknown" })),
       });
       return {
         ok: false as const,

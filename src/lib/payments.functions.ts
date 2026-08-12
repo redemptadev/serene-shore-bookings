@@ -108,7 +108,7 @@ export const refreshPaymentStatus = createServerFn({ method: "POST" })
       return { ok: true as const, status: "paid" as const };
     }
     if (result.resultCode && result.resultCode !== "1032" && result.resultCode !== "") {
-      await db.from("payments").update({ status: "failed", raw_payload: result.raw }).eq("id", payment.id);
+      await db.from("payments").update({ status: "failed", raw_payload: JSON.parse(JSON.stringify(result.raw)) }).eq("id", payment.id);
       return { ok: true as const, status: "failed" as const, message: "Payment could not be verified." };
     }
     return { ok: true as const, status: "pending" as const, message: "Payment is still pending confirmation." };

@@ -110,9 +110,10 @@ export const adminUpdateBooking = createServerFn({ method: "POST" })
     const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
     if (!isAdmin) return { ok: false as const, message: "Not authorised." };
 
-    const patch: { booking_status?: typeof data.bookingStatus; payment_status?: typeof data.paymentStatus } = {};
-    if (data.bookingStatus) patch.booking_status = data.bookingStatus;
-    if (data.paymentStatus) patch.payment_status = data.paymentStatus;
+    const patch = {
+      ...(data.bookingStatus ? { booking_status: data.bookingStatus } : {}),
+      ...(data.paymentStatus ? { payment_status: data.paymentStatus } : {}),
+    };
     if (Object.keys(patch).length === 0) return { ok: true as const };
 
     const { error } = await context.supabase.from("bookings").update(patch).eq("id", data.bookingId);

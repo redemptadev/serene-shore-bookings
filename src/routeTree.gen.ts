@@ -9,12 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as StaysIndexRouteImport } from './routes/stays/index'
 import { Route as ApiPublicPaymentsMpesaCallbackRouteImport } from './routes/api/public/payments/mpesa-callback'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaysIndexRoute = StaysIndexRouteImport.update({
+  id: '/stays/',
+  path: '/stays/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPaymentsMpesaCallbackRoute =
@@ -25,38 +30,53 @@ const ApiPublicPaymentsMpesaCallbackRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AuthenticatedRouteRoute
+  '/stays/': typeof StaysIndexRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof AuthenticatedRouteRoute
+  '/stays': typeof StaysIndexRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRoute
+  '/stays/': typeof StaysIndexRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/payments/mpesa-callback'
+  fullPaths: '/' | '/stays/' | '/api/public/payments/mpesa-callback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/payments/mpesa-callback'
-  id: '__root__' | '/' | '/api/public/payments/mpesa-callback'
+  to: '/' | '/stays' | '/api/public/payments/mpesa-callback'
+  id:
+    | '__root__'
+    | '/_authenticated'
+    | '/stays/'
+    | '/api/public/payments/mpesa-callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRoute
+  StaysIndexRoute: typeof StaysIndexRoute
   ApiPublicPaymentsMpesaCallbackRoute: typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stays/': {
+      id: '/stays/'
+      path: '/stays'
+      fullPath: '/stays/'
+      preLoaderRoute: typeof StaysIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/payments/mpesa-callback': {
@@ -70,7 +90,8 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRoute,
+  StaysIndexRoute: StaysIndexRoute,
   ApiPublicPaymentsMpesaCallbackRoute: ApiPublicPaymentsMpesaCallbackRoute,
 }
 export const routeTree = rootRouteImport

@@ -52,7 +52,7 @@ function StayDetail() {
     );
   }
 
-  const images = property.images ?? [];
+  const images = property.property_images ?? [];
 
   return (
     <SiteLayout>

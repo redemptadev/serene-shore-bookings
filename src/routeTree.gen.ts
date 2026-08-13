@@ -9,12 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StaysIndexRouteImport } from './routes/stays/index'
+import { Route as StaysSlugRouteImport } from './routes/stays/$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
+import { Route as AuthenticatedDashboardFavoritesRouteImport } from './routes/_authenticated/dashboard/favorites'
+import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard/profile'
+import { Route as AuthenticatedDashboardBookingsIdRouteImport } from './routes/_authenticated/dashboard/bookings.$id'
 import { Route as ApiPublicPaymentsMpesaCallbackRouteImport } from './routes/api/public/payments/mpesa-callback'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaysIndexRoute = StaysIndexRouteImport.update({
@@ -22,6 +46,40 @@ const StaysIndexRoute = StaysIndexRouteImport.update({
   path: '/stays/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StaysSlugRoute = StaysSlugRouteImport.update({
+  id: '/stays/$slug',
+  path: '/stays/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardFavoritesRoute =
+  AuthenticatedDashboardFavoritesRouteImport.update({
+    id: '/dashboard/favorites',
+    path: '/dashboard/favorites',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardProfileRoute =
+  AuthenticatedDashboardProfileRouteImport.update({
+    id: '/dashboard/profile',
+    path: '/dashboard/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardBookingsIdRoute =
+  AuthenticatedDashboardBookingsIdRouteImport.update({
+    id: '/dashboard/bookings/$id',
+    path: '/dashboard/bookings/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicPaymentsMpesaCallbackRoute =
   ApiPublicPaymentsMpesaCallbackRouteImport.update({
     id: '/api/public/payments/mpesa-callback',
@@ -30,46 +88,127 @@ const ApiPublicPaymentsMpesaCallbackRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedRouteRoute
+  '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
+  '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AuthenticatedRouteRoute
+  '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/stays/$slug': typeof StaysSlugRoute
   '/stays': typeof StaysIndexRoute
+  '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
+  '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_authenticated': typeof AuthenticatedRouteRoute
+  '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/_authenticated/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
+  '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/stays/' | '/api/public/payments/mpesa-callback'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/contact'
+    | '/stays/$slug'
+    | '/stays/'
+    | '/dashboard/favorites'
+    | '/dashboard/profile'
+    | '/admin/'
+    | '/dashboard/'
+    | '/dashboard/bookings/$id'
+    | '/api/public/payments/mpesa-callback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/stays' | '/api/public/payments/mpesa-callback'
+  to:
+    | '/'
+    | '/auth'
+    | '/contact'
+    | '/stays/$slug'
+    | '/stays'
+    | '/dashboard/favorites'
+    | '/dashboard/profile'
+    | '/admin'
+    | '/dashboard'
+    | '/dashboard/bookings/$id'
+    | '/api/public/payments/mpesa-callback'
   id:
     | '__root__'
+    | '/'
     | '/_authenticated'
+    | '/auth'
+    | '/contact'
+    | '/stays/$slug'
     | '/stays/'
+    | '/_authenticated/dashboard/favorites'
+    | '/_authenticated/dashboard/profile'
+    | '/_authenticated/admin/'
+    | '/_authenticated/dashboard/'
+    | '/_authenticated/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRoute
+  IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ContactRoute: typeof ContactRoute
+  StaysSlugRoute: typeof StaysSlugRoute
   StaysIndexRoute: typeof StaysIndexRoute
   ApiPublicPaymentsMpesaCallbackRoute: typeof ApiPublicPaymentsMpesaCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/stays/': {
@@ -78,6 +217,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/stays/'
       preLoaderRoute: typeof StaysIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/stays/$slug': {
+      id: '/stays/$slug'
+      path: '/stays/$slug'
+      fullPath: '/stays/$slug'
+      preLoaderRoute: typeof StaysSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/favorites': {
+      id: '/_authenticated/dashboard/favorites'
+      path: '/dashboard/favorites'
+      fullPath: '/dashboard/favorites'
+      preLoaderRoute: typeof AuthenticatedDashboardFavoritesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/profile': {
+      id: '/_authenticated/dashboard/profile'
+      path: '/dashboard/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard/bookings/$id': {
+      id: '/_authenticated/dashboard/bookings/$id'
+      path: '/dashboard/bookings/$id'
+      fullPath: '/dashboard/bookings/$id'
+      preLoaderRoute: typeof AuthenticatedDashboardBookingsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/payments/mpesa-callback': {
       id: '/api/public/payments/mpesa-callback'
@@ -89,8 +270,31 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardFavoritesRoute: typeof AuthenticatedDashboardFavoritesRoute
+  AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
+  AuthenticatedDashboardBookingsIdRoute: typeof AuthenticatedDashboardBookingsIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardFavoritesRoute: AuthenticatedDashboardFavoritesRoute,
+  AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  AuthenticatedDashboardBookingsIdRoute: AuthenticatedDashboardBookingsIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  AuthenticatedRouteRoute: AuthenticatedRouteRoute,
+  IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ContactRoute: ContactRoute,
+  StaysSlugRoute: StaysSlugRoute,
   StaysIndexRoute: StaysIndexRoute,
   ApiPublicPaymentsMpesaCallbackRoute: ApiPublicPaymentsMpesaCallbackRoute,
 }

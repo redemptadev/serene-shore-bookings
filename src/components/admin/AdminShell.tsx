@@ -4,7 +4,14 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 
-const LINKS = [{ to: "/admin", label: "Overview", exact: true }] as const;
+const LINKS = [
+  { to: "/admin", label: "Overview", exact: true },
+  { to: "/admin/properties", label: "Listings", exact: false },
+  { to: "/admin/bookings", label: "Bookings", exact: false },
+  { to: "/admin/calendar", label: "Calendar", exact: false },
+  { to: "/admin/reviews", label: "Reviews", exact: false },
+  { to: "/admin/settings", label: "Settings", exact: false },
+] as const;
 
 export function AdminShell({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   const { isAdmin, loading, user } = useAuth();
@@ -23,7 +30,7 @@ export function AdminShell({ title, description, children }: { title: string; de
             <Link
               key={link.to}
               to={link.to}
-              activeOptions={{ exact: "exact" in link ? link.exact : false }}
+              activeOptions={{ exact: link.exact }}
               className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition hover:bg-muted"
               activeProps={{ className: "rounded-full bg-primary px-3 py-1.5 text-sm text-primary-foreground" }}
             >

@@ -1,0 +1,1 @@
+UPDATE public.properties SET slug = 'coral-cottage' WHERE slug = 'coral Cottage';

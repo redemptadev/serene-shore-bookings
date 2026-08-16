@@ -1,6 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 
-const SELECT = "*, properties(id, name, slug, location, check_in_time, check_out_time, property_images(url, storage_path, is_cover, sort_order))";
+const SELECT = "*, properties(id, name, slug, location, check_in_time, check_out_time, property_images(url, storage_path, alt_text, is_cover, sort_order))";
 
 export async function listMyBookings(userId: string) {
   const { data, error } = await supabase

@@ -68,9 +68,11 @@ function BookingDetail() {
   const checkStatus = useMutation({
     mutationFn: () => refresh({ data: { bookingId: id } }),
     onSuccess: (result) => {
-      if (!result.ok) toast.error(result.message ?? "Could not check payment.");
-      else if (result.status === "paid") toast.success("Payment confirmed — your stay is booked!");
-      else toast.info(result.message ?? `Payment is ${result.status}.`);
+      const message = "message" in result ? result.message : null;
+      const status = "status" in result ? result.status : null;
+      if (!result.ok) toast.error(message ?? "Could not check payment.");
+      else if (status === "paid") toast.success("Payment confirmed — your stay is booked!");
+      else toast.info(message ?? `Payment is ${status ?? "pending"}.`);
       invalidate();
     },
     onError: () => toast.error("Could not check the payment status."),

@@ -4,14 +4,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 
-const LINKS = [
-  { to: "/admin", label: "Overview", exact: true },
-  { to: "/admin/properties", label: "Listings" },
-  { to: "/admin/bookings", label: "Bookings" },
-  { to: "/admin/calendar", label: "Calendar" },
-  { to: "/admin/reviews", label: "Reviews" },
-  { to: "/admin/settings", label: "Settings" },
-] as const;
+const LINKS = [{ to: "/admin", label: "Overview", exact: true }] as const;
 
 export function AdminShell({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   const { isAdmin, loading, user } = useAuth();

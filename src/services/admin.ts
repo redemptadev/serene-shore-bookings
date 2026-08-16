@@ -87,3 +87,16 @@ export async function deleteBlock(id: string) {
   const { error } = await supabase.from("availability_blocks").delete().eq("id", id);
   if (error) throw error;
 }
+
+export async function updateBookingStatus(
+  id: string,
+  patch: { booking_status?: Database["public"]["Enums"]["booking_status"]; payment_status?: Database["public"]["Enums"]["payment_status"] },
+) {
+  const { error } = await supabase.from("bookings").update(patch).eq("id", id);
+  if (error) throw error;
+}
+
+export async function deleteBooking(id: string) {
+  const { error } = await supabase.from("bookings").delete().eq("id", id);
+  if (error) throw error;
+}

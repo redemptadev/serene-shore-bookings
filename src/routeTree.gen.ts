@@ -19,6 +19,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminCalendarRouteImport } from './routes/_authenticated/admin/calendar'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
+import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardFavoritesRouteImport } from './routes/_authenticated/dashboard/favorites'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard/profile'
@@ -79,6 +80,12 @@ const AuthenticatedAdminPropertiesRoute =
     path: '/admin/properties',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminReviewsRoute =
+  AuthenticatedAdminReviewsRouteImport.update({
+    id: '/admin/reviews',
+    path: '/admin/reviews',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -131,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/calendar': typeof AuthenticatedAdminCalendarRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -148,6 +156,7 @@ export interface FileRoutesByTo {
   '/stays': typeof StaysIndexRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/calendar': typeof AuthenticatedAdminCalendarRoute
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -168,6 +177,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/calendar': typeof AuthenticatedAdminCalendarRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
+  '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/calendar'
     | '/admin/properties'
+    | '/admin/reviews'
     | '/dashboard/favorites'
     | '/dashboard/profile'
     | '/admin/'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/stays'
     | '/admin/bookings'
     | '/admin/calendar'
+    | '/admin/reviews'
     | '/dashboard/favorites'
     | '/dashboard/profile'
     | '/admin'
@@ -224,6 +236,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/calendar'
     | '/_authenticated/admin/properties'
+    | '/_authenticated/admin/reviews'
     | '/_authenticated/dashboard/favorites'
     | '/_authenticated/dashboard/profile'
     | '/_authenticated/admin/'
@@ -316,6 +329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPropertiesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/reviews': {
+      id: '/_authenticated/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AuthenticatedAdminReviewsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -389,6 +409,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminCalendarRoute: typeof AuthenticatedAdminCalendarRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRouteWithChildren
+  AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedDashboardFavoritesRoute: typeof AuthenticatedDashboardFavoritesRoute
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -401,6 +422,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminCalendarRoute: AuthenticatedAdminCalendarRoute,
   AuthenticatedAdminPropertiesRoute:
     AuthenticatedAdminPropertiesRouteWithChildren,
+  AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
   AuthenticatedDashboardFavoritesRoute: AuthenticatedDashboardFavoritesRoute,
   AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

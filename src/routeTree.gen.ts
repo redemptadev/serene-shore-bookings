@@ -21,6 +21,7 @@ import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardFavoritesRouteImport } from './routes/_authenticated/dashboard/favorites'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard/profile'
 import { Route as AuthenticatedAdminPropertiesIndexRouteImport } from './routes/_authenticated/admin/properties.index'
+import { Route as AuthenticatedAdminPropertiesIdRouteImport } from './routes/_authenticated/admin/properties.$id'
 import { Route as AuthenticatedDashboardBookingsIdRouteImport } from './routes/_authenticated/dashboard/bookings.$id'
 import { Route as ApiPublicPaymentsMpesaCallbackRouteImport } from './routes/api/public/payments/mpesa-callback'
 
@@ -88,6 +89,12 @@ const AuthenticatedAdminPropertiesIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAdminPropertiesRoute,
   } as any)
+const AuthenticatedAdminPropertiesIdRoute =
+  AuthenticatedAdminPropertiesIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminPropertiesRoute,
+  } as any)
 const AuthenticatedDashboardBookingsIdRoute =
   AuthenticatedDashboardBookingsIdRouteImport.update({
     id: '/dashboard/bookings/$id',
@@ -112,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
   '/admin/properties/': typeof AuthenticatedAdminPropertiesIndexRoute
@@ -126,6 +134,7 @@ export interface FileRoutesByTo {
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesIndexRoute
@@ -143,6 +152,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/_authenticated/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
   '/_authenticated/admin/properties/': typeof AuthenticatedAdminPropertiesIndexRoute
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/admin/'
     | '/dashboard/'
+    | '/admin/properties/$id'
     | '/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
     | '/admin/properties/'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/dashboard/profile'
     | '/admin'
     | '/dashboard'
+    | '/admin/properties/$id'
     | '/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
     | '/admin/properties'
@@ -190,6 +202,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/profile'
     | '/_authenticated/admin/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/admin/properties/$id'
     | '/_authenticated/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
     | '/_authenticated/admin/properties/'
@@ -291,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPropertiesIndexRouteImport
       parentRoute: typeof AuthenticatedAdminPropertiesRoute
     }
+    '/_authenticated/admin/properties/$id': {
+      id: '/_authenticated/admin/properties/$id'
+      path: '/$id'
+      fullPath: '/admin/properties/$id'
+      preLoaderRoute: typeof AuthenticatedAdminPropertiesIdRouteImport
+      parentRoute: typeof AuthenticatedAdminPropertiesRoute
+    }
     '/_authenticated/dashboard/bookings/$id': {
       id: '/_authenticated/dashboard/bookings/$id'
       path: '/dashboard/bookings/$id'
@@ -309,11 +329,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminPropertiesRouteChildren {
+  AuthenticatedAdminPropertiesIdRoute: typeof AuthenticatedAdminPropertiesIdRoute
   AuthenticatedAdminPropertiesIndexRoute: typeof AuthenticatedAdminPropertiesIndexRoute
 }
 
 const AuthenticatedAdminPropertiesRouteChildren: AuthenticatedAdminPropertiesRouteChildren =
   {
+    AuthenticatedAdminPropertiesIdRoute: AuthenticatedAdminPropertiesIdRoute,
     AuthenticatedAdminPropertiesIndexRoute:
       AuthenticatedAdminPropertiesIndexRoute,
   }

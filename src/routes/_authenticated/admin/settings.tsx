@@ -152,7 +152,7 @@ function AdminSettingsPage() {
             <CardTitle>Integrations</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-2 text-sm">
-            {(integrations ?? []).map((integration) => (
+            {(integrations?.integrations ?? []).map((integration) => (
               <div key={integration.id} className="flex items-center justify-between rounded-lg border p-3">
                 <span>
                   <strong>{integration.label}</strong>

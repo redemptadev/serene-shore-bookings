@@ -16,9 +16,16 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StaysIndexRouteImport } from './routes/stays/index'
 import { Route as StaysSlugRouteImport } from './routes/stays/$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
+import { Route as AuthenticatedAdminCalendarRouteImport } from './routes/_authenticated/admin/calendar'
+import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
+import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin/reviews'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardFavoritesRouteImport } from './routes/_authenticated/dashboard/favorites'
 import { Route as AuthenticatedDashboardProfileRouteImport } from './routes/_authenticated/dashboard/profile'
+import { Route as AuthenticatedAdminPropertiesIndexRouteImport } from './routes/_authenticated/admin/properties.index'
+import { Route as AuthenticatedAdminPropertiesIdRouteImport } from './routes/_authenticated/admin/properties.$id'
 import { Route as AuthenticatedDashboardBookingsIdRouteImport } from './routes/_authenticated/dashboard/bookings.$id'
 import { Route as ApiPublicPaymentsMpesaCallbackRouteImport } from './routes/api/public/payments/mpesa-callback'
 
@@ -56,6 +63,36 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminBookingsRoute =
+  AuthenticatedAdminBookingsRouteImport.update({
+    id: '/admin/bookings',
+    path: '/admin/bookings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminCalendarRoute =
+  AuthenticatedAdminCalendarRouteImport.update({
+    id: '/admin/calendar',
+    path: '/admin/calendar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminPropertiesRoute =
+  AuthenticatedAdminPropertiesRouteImport.update({
+    id: '/admin/properties',
+    path: '/admin/properties',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminReviewsRoute =
+  AuthenticatedAdminReviewsRouteImport.update({
+    id: '/admin/reviews',
+    path: '/admin/reviews',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/admin/settings',
+    path: '/admin/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/dashboard/',
@@ -73,6 +110,18 @@ const AuthenticatedDashboardProfileRoute =
     id: '/dashboard/profile',
     path: '/dashboard/profile',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminPropertiesIndexRoute =
+  AuthenticatedAdminPropertiesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminPropertiesRoute,
+  } as any)
+const AuthenticatedAdminPropertiesIdRoute =
+  AuthenticatedAdminPropertiesIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminPropertiesRoute,
   } as any)
 const AuthenticatedDashboardBookingsIdRoute =
   AuthenticatedDashboardBookingsIdRouteImport.update({
@@ -93,12 +142,19 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calendar': typeof AuthenticatedAdminCalendarRoute
+  '/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
+  '/admin/properties/': typeof AuthenticatedAdminPropertiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -106,12 +162,18 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays': typeof StaysIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calendar': typeof AuthenticatedAdminCalendarRoute
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
+  '/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
+  '/admin/properties': typeof AuthenticatedAdminPropertiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,12 +183,19 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/_authenticated/admin/calendar': typeof AuthenticatedAdminCalendarRoute
+  '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
+  '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
+  '/_authenticated/admin/properties/$id': typeof AuthenticatedAdminPropertiesIdRoute
   '/_authenticated/dashboard/bookings/$id': typeof AuthenticatedDashboardBookingsIdRoute
   '/api/public/payments/mpesa-callback': typeof ApiPublicPaymentsMpesaCallbackRoute
+  '/_authenticated/admin/properties/': typeof AuthenticatedAdminPropertiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,12 +205,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays/'
+    | '/admin/bookings'
+    | '/admin/calendar'
+    | '/admin/properties'
+    | '/admin/reviews'
+    | '/admin/settings'
     | '/dashboard/favorites'
     | '/dashboard/profile'
     | '/admin/'
     | '/dashboard/'
+    | '/admin/properties/$id'
     | '/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
+    | '/admin/properties/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -149,12 +225,18 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays'
+    | '/admin/bookings'
+    | '/admin/calendar'
+    | '/admin/reviews'
+    | '/admin/settings'
     | '/dashboard/favorites'
     | '/dashboard/profile'
     | '/admin'
     | '/dashboard'
+    | '/admin/properties/$id'
     | '/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
+    | '/admin/properties'
   id:
     | '__root__'
     | '/'
@@ -163,12 +245,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays/'
+    | '/_authenticated/admin/bookings'
+    | '/_authenticated/admin/calendar'
+    | '/_authenticated/admin/properties'
+    | '/_authenticated/admin/reviews'
+    | '/_authenticated/admin/settings'
     | '/_authenticated/dashboard/favorites'
     | '/_authenticated/dashboard/profile'
     | '/_authenticated/admin/'
     | '/_authenticated/dashboard/'
+    | '/_authenticated/admin/properties/$id'
     | '/_authenticated/dashboard/bookings/$id'
     | '/api/public/payments/mpesa-callback'
+    | '/_authenticated/admin/properties/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -232,6 +321,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/bookings': {
+      id: '/_authenticated/admin/bookings'
+      path: '/admin/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AuthenticatedAdminBookingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/calendar': {
+      id: '/_authenticated/admin/calendar'
+      path: '/admin/calendar'
+      fullPath: '/admin/calendar'
+      preLoaderRoute: typeof AuthenticatedAdminCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/properties': {
+      id: '/_authenticated/admin/properties'
+      path: '/admin/properties'
+      fullPath: '/admin/properties'
+      preLoaderRoute: typeof AuthenticatedAdminPropertiesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/reviews': {
+      id: '/_authenticated/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AuthenticatedAdminReviewsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/dashboard'
@@ -253,6 +377,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/properties/': {
+      id: '/_authenticated/admin/properties/'
+      path: '/'
+      fullPath: '/admin/properties/'
+      preLoaderRoute: typeof AuthenticatedAdminPropertiesIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminPropertiesRoute
+    }
+    '/_authenticated/admin/properties/$id': {
+      id: '/_authenticated/admin/properties/$id'
+      path: '/$id'
+      fullPath: '/admin/properties/$id'
+      preLoaderRoute: typeof AuthenticatedAdminPropertiesIdRouteImport
+      parentRoute: typeof AuthenticatedAdminPropertiesRoute
+    }
     '/_authenticated/dashboard/bookings/$id': {
       id: '/_authenticated/dashboard/bookings/$id'
       path: '/dashboard/bookings/$id'
@@ -270,7 +408,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminPropertiesRouteChildren {
+  AuthenticatedAdminPropertiesIdRoute: typeof AuthenticatedAdminPropertiesIdRoute
+  AuthenticatedAdminPropertiesIndexRoute: typeof AuthenticatedAdminPropertiesIndexRoute
+}
+
+const AuthenticatedAdminPropertiesRouteChildren: AuthenticatedAdminPropertiesRouteChildren =
+  {
+    AuthenticatedAdminPropertiesIdRoute: AuthenticatedAdminPropertiesIdRoute,
+    AuthenticatedAdminPropertiesIndexRoute:
+      AuthenticatedAdminPropertiesIndexRoute,
+  }
+
+const AuthenticatedAdminPropertiesRouteWithChildren =
+  AuthenticatedAdminPropertiesRoute._addFileChildren(
+    AuthenticatedAdminPropertiesRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminCalendarRoute: typeof AuthenticatedAdminCalendarRoute
+  AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRouteWithChildren
+  AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedDashboardFavoritesRoute: typeof AuthenticatedDashboardFavoritesRoute
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -279,6 +439,12 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+  AuthenticatedAdminCalendarRoute: AuthenticatedAdminCalendarRoute,
+  AuthenticatedAdminPropertiesRoute:
+    AuthenticatedAdminPropertiesRouteWithChildren,
+  AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
+  AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
   AuthenticatedDashboardFavoritesRoute: AuthenticatedDashboardFavoritesRoute,
   AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

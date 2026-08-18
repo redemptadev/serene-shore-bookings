@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StaysIndexRouteImport } from './routes/stays/index'
 import { Route as StaysSlugRouteImport } from './routes/stays/$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard/index'
 import { Route as AuthenticatedDashboardFavoritesRouteImport } from './routes/_authenticated/dashboard/favorites'
@@ -59,6 +60,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminBookingsRoute =
+  AuthenticatedAdminBookingsRouteImport.update({
+    id: '/admin/bookings',
+    path: '/admin/bookings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminPropertiesRoute =
   AuthenticatedAdminPropertiesRouteImport.update({
     id: '/admin/properties',
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
@@ -130,6 +138,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays': typeof StaysIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -147,6 +156,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/stays/$slug': typeof StaysSlugRoute
   '/stays/': typeof StaysIndexRoute
+  '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRouteWithChildren
   '/_authenticated/dashboard/favorites': typeof AuthenticatedDashboardFavoritesRoute
   '/_authenticated/dashboard/profile': typeof AuthenticatedDashboardProfileRoute
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays/'
+    | '/admin/bookings'
     | '/admin/properties'
     | '/dashboard/favorites'
     | '/dashboard/profile'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays'
+    | '/admin/bookings'
     | '/dashboard/favorites'
     | '/dashboard/profile'
     | '/admin'
@@ -197,6 +209,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/stays/$slug'
     | '/stays/'
+    | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/properties'
     | '/_authenticated/dashboard/favorites'
     | '/_authenticated/dashboard/profile'
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/bookings': {
+      id: '/_authenticated/admin/bookings'
+      path: '/admin/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AuthenticatedAdminBookingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/properties': {
@@ -346,6 +366,7 @@ const AuthenticatedAdminPropertiesRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRouteWithChildren
   AuthenticatedDashboardFavoritesRoute: typeof AuthenticatedDashboardFavoritesRoute
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRoute
@@ -355,6 +376,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
   AuthenticatedAdminPropertiesRoute:
     AuthenticatedAdminPropertiesRouteWithChildren,
   AuthenticatedDashboardFavoritesRoute: AuthenticatedDashboardFavoritesRoute,
